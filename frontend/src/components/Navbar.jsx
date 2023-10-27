@@ -1,13 +1,15 @@
+import logo from "../assets/excalibur.svg";
+
 function Navbar() {
   return (
-    <div className="navbar pt-2 pb-2 max-w-screen-2xl font-amarante flex flex-row justify-between bg-head h-10">
-      <div className="title w-1/3 ">
-        <h2 className=" flex justify-center"> Kaamelott - Le Jeu </h2>
+    <div className=" text-2xl fixed-top font-amarante font-bold nav flex flex-row py-4 px-6 bg-head">
+      <div className="title w-1/3 text-center px-14 py-2.5">
+        <h2 className=" inline "> Kaamelott - Le Jeu </h2>
       </div>
-      <div className="image w-1/3 flex justify-center">
-        <img src="../assets/logo.png" alt="logo" />
+      <div className="logo w-1/3 flex justify-center">
+        <img className="max-h-14 rotate-180" src={logo} alt="logo" />
       </div>
-      <ul className="menu w-1/3 flex justify-around">
+      <ul className=" flex justify-between w-1/3 px-14 py-2.5">
         <p className=" inline">Home</p>
         <p className=" inline">Quiz</p>
         <p className=" inline">Contact</p>
