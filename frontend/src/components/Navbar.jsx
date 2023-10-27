@@ -10,9 +10,9 @@ function Navbar() {
         <img className="max-h-14 rotate-180" src={logo} alt="logo" />
       </div>
       <ul className=" flex justify-between w-1/3 px-14 py-2.5">
-        <p className=" inline">Home</p>
-        <p className=" inline">Quiz</p>
-        <p className=" inline">Contact</p>
+        <li className=" inline">Home</li>
+        <li className=" inline">Quiz</li>
+        <li className=" inline">Contact</li>
       </ul>
     </div>
   );
