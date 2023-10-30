@@ -4,7 +4,7 @@ import logo from "../assets/logo-k.png";
 
 function Navbar() {
   return (
-    <div className="Navbar">
+    <nav className="Navbar">
       <section className="navbar-mobile md:hidden">
         <div className="navbar fixed-top w-screen flex flex-row justify-between px-4 py-2 bg-head">
           <div className="logo-title flex flex-row">
@@ -45,7 +45,7 @@ function Navbar() {
             </Link>{" "}
             <Link
               className=" py-4 px-4 h-full hover:bg-black hover:text-head"
-              to="/Quiz"
+              to="/quiz"
             >
               {" "}
               Quiz{" "}
@@ -60,7 +60,7 @@ function Navbar() {
           </ul>
         </div>
       </section>
-    </div>
+    </nav>
   );
 }
 
