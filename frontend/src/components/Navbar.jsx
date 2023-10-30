@@ -2,7 +2,7 @@ import logo from "../assets/excalibur.svg";
 
 function Navbar() {
   return (
-    <div className=" text-2xl fixed-top font-amarante font-bold nav flex flex-row py-4 px-6 bg-head">
+    <nav className=" text-2xl fixed-top font-amarante font-bold nav flex flex-row py-4 px-6 bg-head">
       <div className="title w-1/3 text-center px-14 py-2.5">
         <h2 className=" inline "> Kaamelott - Le Jeu </h2>
       </div>
@@ -14,7 +14,7 @@ function Navbar() {
         <li className=" inline">Quiz</li>
         <li className=" inline">Contact</li>
       </ul>
-    </div>
+    </nav>
   );
 }
 
