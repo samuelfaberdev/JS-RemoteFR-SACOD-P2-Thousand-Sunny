@@ -8,15 +8,11 @@ import Navbar from "./components/Navbar";
 function App() {
   return (
     <div className="App font-amarante">
-      <nav>
-        <Navbar />
-      </nav>
+      <Navbar />
       <main>
         <Outlet />
       </main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 }
