@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
 import { Link } from "react-router-dom";
 import logo from "../assets/logo-k.png";
 
