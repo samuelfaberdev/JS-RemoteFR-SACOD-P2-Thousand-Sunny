@@ -29,23 +29,21 @@ function Quiz() {
                 setQuestion(1);
               }}
             >
-              <label>
-                <input
-                  className="rounded-full px-[5%] md:px-20 h-8 mt-8 md:mt-16 text-center text-black text-xl bg-label placeholder:text-black"
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Entrez votre nom"
-                  required
-                />
-              </label>
-              <label className="flex justify-center">
+              <input
+                className="rounded-full px-[5%] md:px-20 h-8 mt-8 md:mt-16 text-center text-black text-xl bg-label placeholder:text-black"
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Entrez votre nom"
+                required
+              />
+              <div className="flex justify-center">
                 <input
                   type="submit"
                   value="Start"
                   className="bg-label px-24 py-4 text-2xl rounded-[10px] hover:bg-label-hover mt-8"
                 />
-              </label>
+              </div>
             </form>
           </div>
         </div>
