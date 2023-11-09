@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { random } from "../services/random";
+import random from "../services/random";
 
 import gif from "../assets/kaamelott-leodagan.gif";
-import gif2 from "../assets/kaamelott-yvain.gif";
+import gifChampion from "../assets/kaamelott-yvain.gif";
+import gifCon from "../assets/kaamelott-karadoc.gif";
+import interrogation from "../assets/interrogation.jpg";
 
 function Quiz() {
   const API_URL = "https://kaamelott.chaudie.re/api";
 
   const [question, setQuestion] = useState(0);
   const [sousQuestion, setSousQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [username, setUsername] = useState("");
 
   // Initialisation des citations et des réponses
   const [citation, setCitation] = useState([]);
@@ -33,9 +37,12 @@ function Quiz() {
   const saisons = [];
   const episodes = [];
 
+  const [repValid, setRepValid] = useState([]);
+
   // Récupération des citations et des réponses
 
   function getQuestion() {
+    let val = 0;
     setCitation([]);
     setRepActeur([]);
     setRepPersonnage([]);
@@ -43,37 +50,47 @@ function Quiz() {
     setRepEpisode([]);
     setPic([]);
 
-    for (let i = 0; i < 10; i += 1) {
+    function SetReponse() {
       axios
         .get(`${API_URL}/random`)
         .then((res) => {
-          setCitation((oldArray) => [...oldArray, res.data.citation.citation]);
-          setRepActeur((oldArray) => [
-            ...oldArray,
-            res.data.citation.infos.acteur,
-          ]);
+          if (res.data.citation.citation.length < 230 && val < 5) {
+            setCitation((oldArray) => [
+              ...oldArray,
+              res.data.citation.citation,
+            ]);
+            setRepActeur((oldArray) => [
+              ...oldArray,
+              res.data.citation.infos.acteur,
+            ]);
 
-          setRepEpisode((oldArray) => [
-            ...oldArray,
-            res.data.citation.infos.episode,
-          ]);
+            setRepEpisode((oldArray) => [
+              ...oldArray,
+              res.data.citation.infos.episode,
+            ]);
 
-          setRepPersonnage((oldArray) => [
-            ...oldArray,
-            res.data.citation.infos.personnage,
-          ]);
+            setRepPersonnage((oldArray) => [
+              ...oldArray,
+              res.data.citation.infos.personnage,
+            ]);
 
-          setPic((oldArray) => [
-            ...oldArray,
-            `${API_URL}/personnage/${res.data.citation.infos.personnage}/pic`,
-          ]);
+            setPic((oldArray) => [
+              ...oldArray,
+              `${API_URL}/personnage/${res.data.citation.infos.personnage}/pic`,
+            ]);
 
-          setRepSaison((oldArray) => [
-            ...oldArray,
-            res.data.citation.infos.saison,
-          ]);
+            setRepSaison((oldArray) => [
+              ...oldArray,
+              res.data.citation.infos.saison,
+            ]);
+            val += 1;
+          }
         })
         .catch((err) => console.error(`Oups, une erreur est survenu: ${err}`));
+    }
+
+    for (let i = 0; i < 50; i += 1) {
+      SetReponse();
     }
   }
 
@@ -122,45 +139,64 @@ function Quiz() {
   // Lancement de la fonction au demarage de la page
 
   useEffect(() => {
-    getQuestion();
     getRep();
+    getQuestion();
   }, []);
+
+  // Tri pour éviter les doublons
+
+  function triDouble(arrValid, arrGeneral, questionId) {
+    const reponse0 = arrValid[questionId - 1];
+    arrGeneral.splice(arrGeneral.indexOf(reponse0), 1);
+    const reponse1 = random(arrGeneral);
+    arrGeneral.splice(arrGeneral.indexOf(reponse1), 1);
+    const reponse2 = random(arrGeneral);
+    arrGeneral.splice(arrGeneral.indexOf(reponse2), 1);
+    const reponse3 = random(arrGeneral);
+    arrGeneral.splice(arrGeneral.indexOf(reponse3), 1);
+
+    const reponse = [reponse0, reponse1, reponse2, reponse3];
+
+    const index = [0, 1, 2, 3];
+
+    const index0 = random(index);
+    index.splice(index.indexOf(index0), 1);
+    const index1 = random(index);
+    index.splice(index.indexOf(index1), 1);
+    const index2 = random(index);
+    index.splice(index.indexOf(index2), 1);
+    const index3 = random(index);
+    index.splice(index.indexOf(index3), 1);
+
+    setRep([
+      reponse[index0],
+      reponse[index1],
+      reponse[index2],
+      reponse[index3],
+    ]);
+
+    for (let i = 0; i < 4; i += 1) {
+      if (reponse[i] !== undefined) {
+        arrGeneral.push(reponse[i]);
+      }
+    }
+  }
 
   // Tri des réponses
 
   function triRep(questionId, sousQuestionId) {
     switch (sousQuestionId) {
       case 1:
-        setRep(
-          [repActeur[questionId - 1]]
-            .concat(newActeur[random(newActeur.length)])
-            .concat(newActeur[random(newActeur.length)])
-            .concat(newActeur[random(newActeur.length)])
-        );
+        triDouble(repPersonnage, newPersonnage, questionId);
         break;
       case 2:
-        setRep(
-          [repPersonnage[questionId - 1]]
-            .concat(newPersonnage[random(newPersonnage.length)])
-            .concat(newPersonnage[random(newPersonnage.length)])
-            .concat(newPersonnage[random(newPersonnage.length)])
-        );
+        triDouble(repActeur, newActeur, questionId);
         break;
       case 3:
-        setRep(
-          [repSaison[questionId - 1]]
-            .concat(newSaison[random(newSaison.length)])
-            .concat(newSaison[random(newSaison.length)])
-            .concat(newSaison[random(newSaison.length)])
-        );
+        triDouble(repSaison, newSaison, questionId);
         break;
       case 4:
-        setRep(
-          [repEpisode[questionId - 1]]
-            .concat(newEpisode[random(newEpisode.length)])
-            .concat(newEpisode[random(newEpisode.length)])
-            .concat(newEpisode[random(newEpisode.length)])
-        );
+        triDouble(repEpisode, newEpisode, questionId);
         break;
       default:
         console.error(
@@ -171,12 +207,6 @@ function Quiz() {
         break;
     }
   }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setQuestion(1);
-    setSousQuestion(1);
-    triRep(1, 1);
-  };
 
   // Fonction question suivante
 
@@ -184,12 +214,87 @@ function Quiz() {
     if (sousQuestion < 4) {
       setSousQuestion((prevSousQuestion) => prevSousQuestion + 1);
       triRep(question, sousQuestion + 1); // Pass the updated sousQuestion
+      console.info("Score: ", score);
     } else {
-      setQuestion((prevQuestion) => prevQuestion + 1);
-      setSousQuestion(1);
-      triRep(question + 1, 1); // Pass the updated question
+      setTimeout(() => {
+        setRepValid([]);
+        setQuestion((prevQuestion) => prevQuestion + 1);
+        setSousQuestion(1);
+        triRep(question + 1, 1); // Pass the updated question
+        console.info("Score: ", score);
+      }, 3000);
     }
   }
+
+  // Vérification de la réponse
+
+  const verifRep = (e) => {
+    switch (sousQuestion) {
+      case 1:
+        if (
+          e.target.textContent !== repPersonnage[question - 1] ||
+          e.target.textContent === null
+        ) {
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, false]);
+        } else {
+          setScore((prevScore) => prevScore + 1);
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, true]);
+        }
+        break;
+      case 2:
+        if (
+          e.target.textContent !== repActeur[question - 1] ||
+          e.target.textContent === null
+        ) {
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, false]);
+        } else {
+          setScore((prevScore) => prevScore + 1);
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, true]);
+        }
+        break;
+      case 3:
+        if (
+          e.target.textContent !== repSaison[question - 1] ||
+          e.target.textContent === null
+        ) {
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, false]);
+        } else {
+          setScore((prevScore) => prevScore + 1);
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, true]);
+        }
+        break;
+      case 4:
+        if (
+          e.target.textContent !== repEpisode[question - 1] ||
+          e.target.textContent === null
+        ) {
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, false]);
+        } else {
+          setScore((prevScore) => prevScore + 1);
+          nextQuestion();
+          setRepValid((oldArray) => [...oldArray, true]);
+        }
+        break;
+      default:
+        nextQuestion();
+        break;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setQuestion(1);
+    setSousQuestion(1);
+    triRep(1, 1);
+    setUsername(e.target.name.value);
+  };
 
   // Affichage de la page
 
@@ -198,8 +303,8 @@ function Quiz() {
       {/* Les règles */}
 
       {question === 0 && (
-        <div className="fixed z-50 bg-back w-screen h-[calc(100vh-7.5rem)] flex items-center justify-center">
-          <div className="bg-green w-[80%] md:w-[50%] min-h-[60%] h-auto py-8 rounded-[10px] flex flex-col items-center">
+        <div className="fixed z-50 bg-back w-screen h-[calc(100vh-6rem)] md:h-[calc(100vh-7rem)] tall:h-[calc(100vh-6rem)] flex items-center justify-center">
+          <div className="bg-green w-[80%] md:w-[50%] h-auto py-8 rounded-[10px] flex flex-col items-center">
             <p className="text-label text-4xl">Règles:</p>
             <p className="text-center mt-4 md:mt-8 text-label text-xl mx-4">
               En garde ma biquette ! 4 choix possibles et puis c'est tout ! Et
@@ -208,7 +313,7 @@ function Quiz() {
             <img
               src={gif}
               alt="Gif"
-              className="hidden md:block md:mt-8 md:max-h-[40%] px-4"
+              className="hidden md:block tall:hidden md:mt-8 md:max-h-[40%] px-4"
             />
             <form
               className="flex flex-col"
@@ -238,65 +343,153 @@ function Quiz() {
 
       {/* Questions de 1 à 10 */}
 
-      {question > 0 && question < 11 && (
-        <div className="fixed z-50 bg-back w-screen h-[calc(100vh-7.5rem)] flex items-center justify-center">
-          <div className="bg-green w-[80%] md:w-[50%] h-auto py-8 min-h-[60%] rounded-[10px] flex flex-col items-center">
-            <p className="text-label text-4xl">{citation[question - 1]}</p>
+      {question > 0 && question < 6 && (
+        <div className="fixed flex-col z-50 bg-back w-screen h-[calc(100vh-6rem)] md:h-[calc(100vh-7rem)] tall:h-[calc(100vh-6rem)] flex justify-center">
+          <div className="bg-green w-screen h-auto py-8 min-h-[60%] flex flex-col items-center mb-4 md:mb-8">
             <img
-              src={pic[question - 1]}
-              alt="Gif"
-              className="hidden md:block md:mt-8 md:max-h-[40%] md:rounded-full"
+              className="rounded-full w-[20%] md:w-[10%] mb-4 hidden md:block"
+              src={sousQuestion > 2 ? pic[question - 1] : interrogation}
+              alt="Personnage"
             />
-            <button
-              type="button"
-              className="bg-label px-24 py-4 text-2xl rounded-[10px] hover:bg-label-hover mt-8"
-              onClick={() => {
-                nextQuestion();
-              }}
-            >
-              {rep[0]}
-            </button>
-            <button
-              type="button"
-              className="bg-label px-24 py-4 text-2xl rounded-[10px] hover:bg-label-hover mt-8"
-              onClick={() => {
-                nextQuestion();
-              }}
-            >
-              {rep[1]}
-            </button>
-            <button
-              type="button"
-              className="bg-label px-24 py-4 text-2xl rounded-[10px] hover:bg-label-hover mt-8"
-              onClick={() => {
-                nextQuestion();
-              }}
-            >
-              {rep[2]}
-            </button>
-            <button
-              type="button"
-              className="bg-label px-24 py-4 text-2xl rounded-[10px] hover:bg-label-hover mt-8"
-              onClick={() => {
-                nextQuestion();
-              }}
-            >
-              {rep[3]}
-            </button>
+            <p className="text-label text-xl md:text-3xl tall:text-xl">
+              {sousQuestion === 1 && "Quel personnage a dit cette citation ?"}
+              {sousQuestion === 2 && "Quel acteur a dit cette citation ?"}
+              {sousQuestion === 3
+                ? "Dans quel saison a été dit cette citation ?"
+                : sousQuestion === 4 &&
+                  "Dans quel épisode a été dit cette citation ?"}
+            </p>
+            <div className="bg-label rounded-[20px] w-[75%] text-center py-4 md:py-16 tall:py-4 mt-4">
+              <p className="text-black text-xs px-2 md:text-2xl tall:text-xl">
+                {citation[question - 1]}
+              </p>
+            </div>
+            <div className="grid gap-4 grid-cols-2 text-center pt-4 w-[60%]">
+              <div
+                className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[0] === true && "bg-[#008000] text-label"
+                }
+                    ${
+                      repValid[0] === false
+                        ? "bg-[#a41919] text-label"
+                        : "bg-label"
+                    }`}
+              >
+                <p>Personnage</p>
+              </div>
+              <div
+                className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[1] === true && "bg-[#008000] text-label"
+                }
+                    ${
+                      repValid[1] === false
+                        ? "bg-[#a41919] text-label"
+                        : "bg-label"
+                    }`}
+              >
+                <p>Acteur</p>
+              </div>
+              <div
+                className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[2] === true && "bg-[#008000] text-label"
+                }
+                    ${
+                      repValid[2] === false
+                        ? "bg-[#a41919] text-label"
+                        : "bg-label"
+                    }`}
+              >
+                <p>Saison</p>
+              </div>
+              <div
+                className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[3] === true && "bg-[#008000] text-label"
+                }
+                    ${
+                      repValid[3] === false
+                        ? "bg-[#a41919] text-label"
+                        : "bg-label"
+                    }`}
+              >
+                <p>Episode</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center w-screen">
+              <p className="text-label mt-6 mb-2 text-bold text-sm md:text-2xl">
+                {sousQuestion === 1 && "Personnage:"}
+                {sousQuestion === 2 && "Acteur:"}
+                {sousQuestion === 3
+                  ? "Saison:"
+                  : sousQuestion === 4 && "Episode:"}
+              </p>
+
+              <div className="flex flex-col items-center md:grid md:gap-4 md:grid-cols-2 md:text-center md:pt-4 w-screen">
+                <div className="flex justify-center w-screen md:w-auto md:justify-end">
+                  <button
+                    type="button"
+                    disabled={
+                      (repValid[3] === true || repValid[3] === false) && true
+                    }
+                    className="bg-label text-sm md:text-xl rounded-[10px] hover:bg-label-hover w-[90%] md:w-[50%] h-8 md:h-12 tall:h-8"
+                    onClick={verifRep}
+                  >
+                    {rep[0]}
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  disabled={
+                    (repValid[3] === true || repValid[3] === false) && true
+                  }
+                  className="bg-label text-sm md:text-xl rounded-[10px] hover:bg-label-hover w-[90%] md:w-[50%] h-8 md:h-12 tall:h-8 mt-2 md:mt-0"
+                  onClick={verifRep}
+                >
+                  {rep[1]}
+                </button>
+                <div className="flex justify-center w-screen md:w-auto md:justify-end">
+                  <button
+                    type="button"
+                    disabled={
+                      (repValid[3] === true || repValid[3] === false) && true
+                    }
+                    className="bg-label text-sm md:text-xl rounded-[10px] hover:bg-label-hover w-[90%] md:w-[50%] h-8 md:h-12 tall:h-8 mt-2 md:mt-0"
+                    onClick={verifRep}
+                  >
+                    {rep[[2]]}
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  disabled={
+                    (repValid[3] === true || repValid[3] === false) && true
+                  }
+                  className="bg-label text-sm md:text-xl rounded-[10px] hover:bg-label-hover w-[90%] md:w-[50%] h-8 md:h-12 tall:h-8 mt-2 md:mt-0"
+                  onClick={verifRep}
+                >
+                  {rep[3]}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="h-[1.3rem] md:h-8 tall:h-6 bg-no-repeat mx-auto border-[0.2px] rounded-full w-[90%] mb-auto">
+            {" "}
           </div>
         </div>
       )}
 
       {/* Résultat */}
 
-      {question === 11 && (
-        <div className="fixed z-50 bg-back w-screen h-[calc(100vh-7.5rem)] flex items-center justify-center">
+      {question === 6 && (
+        <div className="fixed z-50 bg-back w-screen h-[calc(100vh-6rem)] md:h-[calc(100vh-7rem)] tall:h-[calc(100vh-6rem)] flex items-center justify-center">
           <div className="bg-green w-[80%] md:w-[50%] h-auto py-8 min-h-[60%] rounded-[10px] flex flex-col items-center">
             <p className="text-label text-4xl">Résultat:</p>
+            <p>
+              Bravo {username} tu as obtenu un score de: {score}
+            </p>
             <img
-              src={gif2}
+              src={score < 11 ? gifCon : gifChampion}
               alt="Gif"
-              className="hidden md:block md:mt-8 md:max-h-[40%]"
+              className="hidden md:block tall:hidden md:mt-8 md:max-h-[40%]"
             />
             <button
               type="button"
@@ -304,6 +497,7 @@ function Quiz() {
               onClick={() => {
                 setQuestion(0);
                 getQuestion();
+                setScore(0);
               }}
             >
               Restart

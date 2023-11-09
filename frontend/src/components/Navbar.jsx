@@ -19,7 +19,7 @@ function Navbar() {
               <Link to="/">Home</Link>{" "}
             </li>
             <li>
-              <Link to="/Quiz"> Quiz </Link>{" "}
+              <Link to="/quiz"> Quiz </Link>{" "}
             </li>
             <li>
               <Link to="/contact"> Contact</Link>{" "}
