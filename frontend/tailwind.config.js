@@ -4,10 +4,21 @@ export default {
   theme: {
     colors: {
       black: "#001011",
-      green: "#4B5842",
-      label: "#D9D9D9",
+      green: {
+        DEFAULT: "#4B5842",
+        hover: "#728465",
+      },
+      label: {
+        DEFAULT: "#D9D9D9",
+        hover: "#BBBBBB",
+      },
       head: "#EBEBD3",
       back: "#E3DBCC",
+    },
+    extend: {
+      screens: {
+        tall: { raw: "(max-height: 1000px)" },
+      },
     },
     fontFamily: {
       amarante: ["Amarante", "serif"],

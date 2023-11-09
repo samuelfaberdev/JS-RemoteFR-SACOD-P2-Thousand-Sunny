@@ -1,6 +1,6 @@
 function Contact() {
   return (
-    <div className="bg-back fixed w-screen h-[calc(100vh-7.5rem)] flex items-center justify-center">
+    <div className="bg-back fixed w-screen h-[calc(100vh-6rem)] md:h-[calc(100vh-7rem)] tall:h-[calc(100vh-6rem)] flex items-center justify-center">
       <div className="bg-green flex flex-col h-auto py-8 px-6 w-auto md:w-auto items-center rounded-[10px]">
         <form
           className="flex flex-col my-auto"
