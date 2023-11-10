@@ -345,7 +345,7 @@ function Quiz() {
 
       {question > 0 && question < 6 && (
         <div className="fixed flex-col z-50 bg-back w-screen h-[calc(100vh-6rem)] md:h-[calc(100vh-7rem)] tall:h-[calc(100vh-6rem)] flex justify-center">
-          <div className="bg-green w-screen h-auto py-8 min-h-[60%] flex flex-col items-center mb-4 md:mb-8">
+          <div className="bg-green w-screen h-auto py-8 min-h-[60%] flex flex-col items-center mb-auto">
             <img
               className="rounded-full w-[20%] md:w-[10%] mb-4 hidden md:block"
               src={sousQuestion > 2 ? pic[question - 1] : interrogation}
@@ -458,9 +458,6 @@ function Quiz() {
                 </button>
               </div>
             </div>
-          </div>
-          <div className="h-[1.3rem] md:h-8 tall:h-6 bg-no-repeat mx-auto border-[0.2px] rounded-full w-[90%] mb-auto">
-            {" "}
           </div>
         </div>
       )}
