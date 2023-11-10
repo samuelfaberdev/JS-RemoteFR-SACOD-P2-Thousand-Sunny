@@ -367,49 +367,37 @@ function Quiz() {
             <div className="grid gap-4 grid-cols-2 text-center pt-4 w-[60%]">
               <div
                 className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[0] === false && "bg-[#a41919] text-label"
+                } ${repValid[0] === undefined && "bg-label"} ${
                   repValid[0] === true && "bg-[#008000] text-label"
-                }
-                    ${
-                      repValid[0] === false
-                        ? "bg-[#a41919] text-label"
-                        : "bg-label"
-                    }`}
+                }`}
               >
                 <p>Personnage</p>
               </div>
               <div
                 className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[1] === false && "bg-[#a41919] text-label"
+                } ${repValid[1] === undefined && "bg-label"} ${
                   repValid[1] === true && "bg-[#008000] text-label"
-                }
-                    ${
-                      repValid[1] === false
-                        ? "bg-[#a41919] text-label"
-                        : "bg-label"
-                    }`}
+                }`}
               >
                 <p>Acteur</p>
               </div>
               <div
                 className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[2] === false && "bg-[#a41919] text-label"
+                } ${repValid[2] === undefined && "bg-label"} ${
                   repValid[2] === true && "bg-[#008000] text-label"
-                }
-                    ${
-                      repValid[2] === false
-                        ? "bg-[#a41919] text-label"
-                        : "bg-label"
-                    }`}
+                }`}
               >
                 <p>Saison</p>
               </div>
               <div
                 className={`text-black py-[2px] md:py-2 tall:py-1 ${
+                  repValid[3] === false && "bg-[#a41919] text-label"
+                } ${repValid[3] === undefined && "bg-label"} ${
                   repValid[3] === true && "bg-[#008000] text-label"
-                }
-                    ${
-                      repValid[3] === false
-                        ? "bg-[#a41919] text-label"
-                        : "bg-label"
-                    }`}
+                }`}
               >
                 <p>Episode</p>
               </div>
