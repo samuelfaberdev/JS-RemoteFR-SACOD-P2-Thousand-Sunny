@@ -17,7 +17,7 @@ export default {
     },
     extend: {
       screens: {
-        tall: { raw: "(max-height: 1000px)" },
+        tall: { raw: "(max-height: 900px)" },
       },
     },
     fontFamily: {
