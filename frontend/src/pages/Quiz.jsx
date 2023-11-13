@@ -214,14 +214,12 @@ function Quiz() {
     if (sousQuestion < 4) {
       setSousQuestion((prevSousQuestion) => prevSousQuestion + 1);
       triRep(question, sousQuestion + 1); // Pass the updated sousQuestion
-      console.info("Score: ", score);
     } else {
       setTimeout(() => {
         setRepValid([]);
         setQuestion((prevQuestion) => prevQuestion + 1);
         setSousQuestion(1);
         triRep(question + 1, 1); // Pass the updated question
-        console.info("Score: ", score);
       }, 3000);
     }
   }
@@ -372,7 +370,11 @@ function Quiz() {
                   repValid[0] === true && "bg-[#008000] text-label"
                 }`}
               >
-                <p>Personnage</p>
+                <p>
+                  {repValid[0] === undefined
+                    ? "Personnage"
+                    : repPersonnage[question - 1]}
+                </p>
               </div>
               <div
                 className={`text-black py-[2px] md:py-2 tall:py-1 ${
@@ -381,7 +383,12 @@ function Quiz() {
                   repValid[1] === true && "bg-[#008000] text-label"
                 }`}
               >
-                <p>Acteur</p>
+                <p>
+                  {" "}
+                  {repValid[1] === undefined
+                    ? "Acteur"
+                    : repActeur[question - 1]}
+                </p>
               </div>
               <div
                 className={`text-black py-[2px] md:py-2 tall:py-1 ${
@@ -390,7 +397,12 @@ function Quiz() {
                   repValid[2] === true && "bg-[#008000] text-label"
                 }`}
               >
-                <p>Saison</p>
+                <p>
+                  {" "}
+                  {repValid[2] === undefined
+                    ? "Saison"
+                    : repSaison[question - 1]}
+                </p>
               </div>
               <div
                 className={`text-black py-[2px] md:py-2 tall:py-1 ${
@@ -399,7 +411,12 @@ function Quiz() {
                   repValid[3] === true && "bg-[#008000] text-label"
                 }`}
               >
-                <p>Episode</p>
+                <p>
+                  {" "}
+                  {repValid[3] === undefined
+                    ? "Episode"
+                    : repEpisode[question - 1]}
+                </p>
               </div>
             </div>
             <div className="flex flex-col items-center w-screen">
