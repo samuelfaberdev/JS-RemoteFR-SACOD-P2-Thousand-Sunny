@@ -1,37 +1,35 @@
 {
-  "name": "template-fullstack",
-  "version": "4.1.1",
-  "description": "project template for the React-Express-MySQL cursus in Wild Code School",
-  "homepage": "https://github.com/wildcodeschool/js-template-fullstack#readme",
-  "bugs": {
-    "url": "https://github.com/wildcodeschool/js-template-fullstack/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wildcodeschool/js-template-fullstack.git"
-  },
-  "config": {
-    "cli": "npm"
-  },
   "scripts": {
-    "postinstall": "cross-env-shell \"husky install && cd ./frontend && $npm_package_config_cli install && cd ../backend && $npm_package_config_cli install\"",
-    "db:migrate": "cd ./backend && node migrate.js",
-    "db:seed": "cd ./backend && node seed.js",
-    "dev": "cross-env-shell 'concurrently -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time}\" \"$npm_package_config_cli:dev-*\"'",
-    "dev-front": "cross-env-shell \"cd ./frontend && $npm_package_config_cli run dev\"",
-    "dev-back": "cross-env-shell \"cd ./backend && $npm_package_config_cli run dev\"",
-    "lint": "lint-staged",
-    "prebuild": "$npm_package_config_cli install",
-    "build": "cross-env-shell \"cd ./frontend && $npm_package_config_cli run build && cd ../backend && $npm_package_config_cli run build\"",
-    "start": "cross-env-shell \"cd ./backend && $npm_package_config_cli run start\""
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "Wild Code School",
-  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "prettier": "^3.0.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2"
+  },
   "devDependencies": {
-    "concurrently": "^8.2.0",
-    "cross-env": "^7.0.3",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.3"
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.46.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.31",
+    "prettier-plugin-tailwindcss": "^0.5.6",
+    "tailwindcss": "^3.3.5",
+    "vite": "^4.4.7"
+  },
+  "lint-staged": {
+    "*": "prettier --check",
+    "*.jsx": "eslint"
   }
 }
