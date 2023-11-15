@@ -47,7 +47,7 @@ function Navbar() {
             </Link>{" "}
             <Link
               className=" py-4 px-4 h-full hover:bg-black hover:text-head"
-              to="/quiz"
+              to="/JS-RemoteFR-SACOD-P2-Thousand-Sunny/quiz"
             >
               {" "}
               Quiz{" "}
