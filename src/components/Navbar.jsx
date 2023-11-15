@@ -16,13 +16,16 @@ function Navbar() {
           </div>
           <ul className="links-mobile self-center w-1/2 flex flex-row gap-2 justify-around">
             <li>
-              <Link to="/">Home</Link>{" "}
+              <Link to="/JS-RemoteFR-SACOD-P2-Thousand-Sunny/">Home</Link>{" "}
             </li>
             <li>
-              <Link to="/quiz"> Quiz </Link>{" "}
+              <Link to="/JS-RemoteFR-SACOD-P2-Thousand-Sunny/quiz"> Quiz </Link>{" "}
             </li>
             <li>
-              <Link to="/contact"> Contact</Link>{" "}
+              <Link to="/JS-RemoteFR-SACOD-P2-Thousand-Sunny/contact">
+                {" "}
+                Contact
+              </Link>{" "}
             </li>
           </ul>
         </div>
@@ -38,7 +41,7 @@ function Navbar() {
           <ul className="links-desktop h-full text-xl w-1/3 flex flex-row gap-2 justify-around">
             <Link
               className=" py-4 px-4 h-full hover:bg-black hover:text-head"
-              to="/"
+              to="/JS-RemoteFR-SACOD-P2-Thousand-Sunny/"
             >
               Home
             </Link>{" "}
@@ -51,7 +54,7 @@ function Navbar() {
             </Link>{" "}
             <Link
               className=" py-4 px-4 h-full hover:bg-black hover:text-head"
-              to="/contact"
+              to="/JS-RemoteFR-SACOD-P2-Thousand-Sunny/contact"
             >
               {" "}
               Contact
