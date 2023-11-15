@@ -15,7 +15,7 @@ function Error() {
       <h1>Error 404</h1>
       <h2>Page not Found</h2>
       <Link
-        to="/"
+        to="/JS-RemoteFR-SACOD-P2-Thousand-Sunny/"
         className=" bg-green hover:bg-green-hover p-5 rounded-full text-label text-4xl mt-10 md:mt-20 tall:mt-10 mb-10 md:mb-0 tall:mb-10"
       >
         Return to Home
