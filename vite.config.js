@@ -7,4 +7,5 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  base: "/JS-RemoteFR-SACOD-P2-Thousand-Sunny/",
 });
