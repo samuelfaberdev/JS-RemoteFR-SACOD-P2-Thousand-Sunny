@@ -14,15 +14,15 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: "/JS-RemoteFR-SACOD-P2-Thousand-Sunny/",
         element: <Home />,
       },
       {
-        path: "/quiz",
+        path: "/JS-RemoteFR-SACOD-P2-Thousand-Sunny/quiz",
         element: <Quiz />,
       },
       {
-        path: "/contact",
+        path: "/JS-RemoteFR-SACOD-P2-Thousand-Sunny/contact",
         element: <Contact />,
       },
     ],
